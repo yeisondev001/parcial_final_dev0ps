@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "jest",
+    "test": "jest --forceExit --detectOpenHandles",
     "dev": "nodemon server.js"
   },
   "keywords": ["devops", "nodejs", "express"],
