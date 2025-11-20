@@ -12,6 +12,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      # Paso para mostrar los archivos y confirmar que package.json sí está
+      - name: Mostrar archivos
+        run: |
+          echo "Directorio actual:"
+          pwd
+          echo "Archivos presentes:"
+          ls -la
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -42,3 +50,4 @@ jobs:
           -H "Content-Type: application/json" \
           -d '{}' \
           https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys
+
