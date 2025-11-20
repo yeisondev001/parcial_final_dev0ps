@@ -14,10 +14,9 @@ jobs:
 
       - name: Mostrar archivos
         run: |
-          echo "Directorio actual:"
-          pwd
-          echo "Archivos presentes:"
-          ls -la
+          echo "Workspace:"
+          echo ${{ github.workspace }}
+          ls -la ${{ github.workspace }}
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -40,7 +39,6 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/sryeisonrojas:latest .
-        working-directory: ${{ github.workspace }}
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/sryeisonrojas:latest
