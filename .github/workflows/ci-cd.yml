@@ -9,24 +9,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
       
-      - name: Mostrar archivos
+      - name: Listar archivos
         run: |
-          echo "=== Directorio actual ==="
-          pwd
-          echo ""
-          echo "=== Contenido del directorio ==="
+          echo "Archivos en el directorio:"
           ls -la
           echo ""
-          echo "=== Buscando package.json ==="
-          find . -name "package.*" -type f
-          echo ""
-          echo "=== Intentando leer package.json ==="
-          if [ -f "package.json" ]; then
-            echo "✓ package.json existe"
-            head -n 5 package.json
-          else
-            echo "✗ package.json NO existe"
-          fi
+          echo "Buscando package:"
+          find . -name "package*" -type f
       
       - name: Setup Node
         uses: actions/setup-node@v3
