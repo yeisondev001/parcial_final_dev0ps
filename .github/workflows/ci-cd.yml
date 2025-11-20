@@ -27,6 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: .
 
       - name: Run unit tests
         run: npm test
