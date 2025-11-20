@@ -1,48 +1,45 @@
 name: CI/CD DevOps
-
 on:
   push:
     branches: ["main"]
-
 jobs:
   build-test-docker:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-
+      
       - name: Mostrar archivos
         run: |
           echo "Workspace:"
-          echo ${{ github.workspace }}
-          ls -la ${{ github.workspace }}
-
+          pwd
+          ls -la
+          echo "Verificando package.json:"
+          cat package.json || echo "package.json no encontrado"
+      
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-
+      
       - name: Install dependencies
         run: npm install
-        working-directory: ${{ github.workspace }}
-
+      
       - name: Run unit tests
         run: npm test
-        working-directory: ${{ github.workspace }}
-
+      
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
+      
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/sryeisonrojas:latest .
-
+      
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/sryeisonrojas:latest
-
+      
       - name: Deploy to Render
         run: |
           curl -X POST \
